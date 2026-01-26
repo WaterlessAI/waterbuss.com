@@ -36,10 +36,6 @@ export default function Home() {
           </div>
           <h1 className="text-xl font-bold tracking-tight text-white">WATERBUSS</h1>
         </div>
-        <div className="text-xs font-mono text-green-400 bg-green-900/20 px-3 py-1 rounded-full border border-green-500/20 flex items-center gap-2">
-          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-          SYSTEM ONLINE
-        </div>
       </header>
 
       {/* BENTO GRID */}
