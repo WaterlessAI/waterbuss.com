@@ -145,7 +145,7 @@ export default function Home() {
             <div>
               <div className="text-white font-bold mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-yellow-500">⚡</span> Impact Calculator
+                  Impact Calculator
                 </div>
                 <button
                   onClick={() => setIsModalOpen(true)}
@@ -197,7 +197,6 @@ export default function Home() {
           <div className="md:col-span-1 md:row-span-1 glass rounded-2xl p-0 overflow-hidden flex flex-col">
             <div className="p-4 border-b border-white/5 flex justify-between items-center">
               <h3 className="text-white font-bold text-sm">Efficiency Index</h3>
-              <IconZap />
             </div>
             <div className="flex-1 overflow-y-auto">
               {models.map((m, i) => (
