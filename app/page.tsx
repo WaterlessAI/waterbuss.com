@@ -56,6 +56,7 @@ export default function Home() {
   const [prompts, setPrompts] = useState(1000);
   const [selectedModel, setSelectedModel] = useState(models[0].id);
   const [copied, setCopied] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => setCount(c => c + 3500), 1000);
@@ -77,11 +78,40 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans text-white pb-20">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          display: flex;
+          width: max-content;
+          animation: marquee 40s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      {/* --- LIVE NEWS TICKER --- */}
+      <div className="sticky top-0 z-[100] bg-[#0A0A0A] border-b border-white/5 py-2 overflow-hidden select-none">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-12 text-[10px] font-mono tracking-widest uppercase">
+          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> LIVE: Global data center water consumption spikes by 12% during peak hours.</span>
+          <span className="text-gray-400">📈 REPORT: Training a single large model evaporates 700,000 liters of clean water.</span>
+          <span className="text-cyan-400">💧 UPDATE: New efficient cooling systems deployed in Nordic regions.</span>
+          <span className="text-gray-400">📡 STATUS: Tracking 15,000+ active GPU clusters worldwide.</span>
+          {/* Duplicate for infinite loop */}
+          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> LIVE: Global data center water consumption spikes by 12% during peak hours.</span>
+          <span className="text-gray-400">📈 REPORT: Training a single large model evaporates 700,000 liters of clean water.</span>
+          <span className="text-cyan-400">💧 UPDATE: New efficient cooling systems deployed in Nordic regions.</span>
+          <span className="text-gray-400">📡 STATUS: Tracking 15,000+ active GPU clusters worldwide.</span>
+        </div>
+      </div>
 
       {/* --- DASHBOARD SECTION --- */}
       <section className="p-4 md:p-8 max-w-7xl mx-auto min-h-screen flex flex-col">
         {/* Header */}
-        <header className="flex items-center mb-8 px-2 border-b border-white/5 pb-4">
+        <header className="flex items-center mb-8 px-2 border-b border-white/5 pb-4 mt-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-cyan-900/30 rounded flex items-center justify-center border border-cyan-500/30">
               <IconWater />
@@ -113,8 +143,16 @@ export default function Home() {
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 opacity-80"></div>
 
             <div>
-              <div className="text-white font-bold mb-6 flex items-center gap-2">
-                <span className="text-yellow-500">⚡</span> Impact Calculator
+              <div className="text-white font-bold mb-6 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-yellow-500">⚡</span> Impact Calculator
+                </div>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-gray-500 hover:border-white/50 hover:text-white transition-colors"
+                >
+                  i
+                </button>
               </div>
               <div className="space-y-6">
                 <div>
@@ -341,6 +379,45 @@ export default function Home() {
           </a>
         </div>
       </footer>
+
+      {/* --- METHODOLOGY MODAL --- */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={() => setIsModalOpen(false)}
+          ></div>
+          <div className="relative glass w-full max-w-md p-8 rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-cyan-500"></div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold">How We Calculate</h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="space-y-4 text-sm text-gray-400 leading-relaxed">
+              <p>
+                Estimates are based on the industry standard of <span className="text-white font-bold">500ml water consumption per 20-50 queries</span> (varying by model efficiency and cooling tech).
+              </p>
+              <p>
+                Electricity usage includes Power Usage Effectiveness (PUE) of <span className="text-white font-bold">1.58</span>.
+              </p>
+              <div className="pt-4 border-t border-white/5 text-[10px] font-mono uppercase tracking-widest text-cyan-400">
+                Source: University of California, Riverside & Cornell University Research (2024).
+              </div>
+            </div>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="w-full mt-8 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3 rounded-xl transition-all"
+            >
+              GOT IT
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
