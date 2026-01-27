@@ -204,12 +204,19 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="mt-12 text-center border-t border-white/5 pt-12 pb-8">
-        <h3 className="text-white font-bold text-lg mb-2">WATERBUSS</h3>
-        <p className="text-gray-600 text-sm mb-6">Building the sustainable future of AI.</p>
-        <div className="text-xs text-gray-700 font-mono">
-          © 2026 Waterbuss. Open Source Project.
-        </div>
+      <footer className="mt-12 text-center border-t border-white/5 pt-8 mb-8">
+        <p className="text-gray-600 text-xs flex flex-col md:flex-row items-center justify-center gap-2">
+          <span>© 2026 Waterbuss. Open Source Project.</span>
+          <span className="hidden md:inline text-gray-800">•</span>
+          <a
+            href="https://github.com/bgywilliam"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-cyan-400 transition-colors"
+          >
+            Created by @bgywilliam
+          </a>
+        </p>
       </footer>
 
     </div>
