@@ -7,7 +7,7 @@ const IconZap = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height=
 
 const models = [
   { id: "mistral", name: "Mistral 7B", water: 4.5, grade: "A+" },
-  { id: "claude", name: "Claude 3 Haiku", water: 8.2, grade: "A" },
+  { id: "claude", name: "Claude 7 Haiku", water: 8.2, grade: "A" },
   { id: "gpt4", name: "GPT-4 Turbo", water: 45.0, grade: "D" },
   { id: "gemini", name: "Gemini Ultra", water: 52.0, grade: "F" },
 ];
