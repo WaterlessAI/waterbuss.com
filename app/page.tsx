@@ -277,6 +277,58 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* --- SECTION 4: GET THE BADGE (JOIN THE MOVEMENT) --- */}
+      <section className="py-24 px-4 bg-[#080808] border-t border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Show Your Commitment to Green AI</h2>
+          <p className="text-gray-400 mb-12">Add the live Waterbuss badge to your project. It's free and raises awareness.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
+            {/* Preview */}
+            <div className="glass p-8 rounded-2xl flex flex-col items-center justify-center border border-white/5">
+              <span className="text-[10px] text-gray-500 uppercase font-mono mb-6">Badge Preview</span>
+              <a
+                href="https://waterbuss.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 16px',
+                  background: '#000',
+                  border: '1px solid #00F0FF',
+                  borderRadius: '99px',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontFamily: 'sans-serif',
+                  fontSize: '12px',
+                  fontWeight: 'bold'
+                }}
+              >
+                <span style={{ color: '#00F0FF' }}>💧</span> Tracked by WATERBUSS
+              </a>
+            </div>
+
+            {/* Code Widget */}
+            <div className="space-y-4">
+              <div className="bg-black/60 rounded-xl p-4 border border-white/10 relative group">
+                <code className="text-[10px] font-mono text-gray-500 break-all leading-relaxed">
+                  {`<a href="https://waterbuss.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>Tracked by WATERBUSS</a>`}
+                </code>
+              </div>
+              <button
+                onClick={() => copyToClipboard(`<a href="https://waterbuss.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>Tracked by WATERBUSS</a>`, "HTML")}
+                className="flex items-center justify-center gap-2 w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded-xl transition-all active:scale-[0.98]"
+              >
+                {copied === "HTML" ? "✅ COPIED TO CLIPBOARD!" : "📋 COPY HTML SNIPPET"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer className="mt-12 text-center border-t border-white/5 pt-12 pb-8">
