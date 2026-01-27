@@ -77,7 +77,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen font-sans text-white pb-20">
+    <div className="min-h-screen font-sans text-white pb-20 overflow-x-hidden">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -124,10 +124,10 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 flex-1">
 
           {/* Main Counter */}
-          <div className="md:col-span-2 md:row-span-2 glass rounded-2xl p-8 relative overflow-hidden group flex flex-col justify-center">
+          <div className="md:col-span-2 md:row-span-2 glass rounded-2xl p-8 relative overflow-hidden group flex flex-col justify-center w-full">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-            <h2 className="text-gray-500 text-xs font-mono uppercase tracking-widest mb-4">Live Global Consumption</h2>
-            <div className="text-5xl md:text-7xl font-bold font-mono text-white glow-text tracking-tighter transition-all">
+            <h2 className="text-gray-500 text-[10px] sm:text-xs font-mono uppercase tracking-widest mb-4">Live Global Consumption</h2>
+            <div className="text-3xl sm:text-4xl md:text-7xl font-bold font-mono text-white glow-text tracking-tighter transition-all break-all">
               {count.toLocaleString()}
             </div>
             <div className="text-cyan-400 text-sm mt-4 font-mono">
@@ -325,7 +325,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
             {/* Preview */}
-            <div className="glass p-8 rounded-2xl flex flex-col items-center justify-center border border-white/5">
+            <div className="glass p-6 md:p-8 rounded-2xl flex flex-col items-center justify-center border border-white/5">
               <span className="text-[10px] text-gray-500 uppercase font-mono mb-6">Badge Preview</span>
               <a
                 href="https://waterbuss.com"
@@ -387,7 +387,7 @@ export default function Home() {
             className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={() => setIsModalOpen(false)}
           ></div>
-          <div className="relative glass w-full max-w-md p-8 rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
+          <div className="relative glass w-full max-w-md p-6 md:p-8 rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-cyan-500"></div>
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">How We Calculate</h2>
