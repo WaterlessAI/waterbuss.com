@@ -8,6 +8,75 @@ const IconServer = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" heig
 const IconCloud = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>;
 const IconHeat = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22h5.61a2 2 0 0 0 1.91-2.54L13 13"></path></svg>;
 
+// --- SUB-COMPONENTS ---
+const CryptoDonation = () => {
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const addresses = {
+    eth: "0x68F86DCaf54262A49cc394d3053B7E107A3CFb20",
+    sol: "Do5HQqBbqeENamYEsUb3fTP3vQLnpGigdpHvYpDH8ADh"
+  };
+
+  const copy = (val: string, key: string) => {
+    navigator.clipboard.writeText(val);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
+  return (
+    <div className="md:col-span-1 md:row-span-1 rounded-2xl p-[1px] bg-gradient-to-br from-yellow-500/50 via-cyan-500/20 to-yellow-500/50 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.15)] relative overflow-hidden">
+      <div className="w-full h-full bg-[#080808] rounded-[15px] p-5 flex flex-col justify-between relative z-10">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-[10px] font-mono text-yellow-500 uppercase tracking-widest bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">Support Mission</span>
+            <div className="flex gap-1.5">
+              <div className="w-5 h-5 bg-white/5 rounded-full flex items-center justify-center p-1">
+                <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=024" className="opacity-70 group-hover:opacity-100 transition-opacity" alt="ETH" />
+              </div>
+              <div className="w-5 h-5 bg-white/5 rounded-full flex items-center justify-center p-1">
+                <img src="https://cryptologos.cc/logos/solana-sol-logo.svg?v=024" className="opacity-70 group-hover:opacity-100 transition-opacity" alt="SOL" />
+              </div>
+            </div>
+          </div>
+          <h3 className="text-sm font-bold text-white mb-2">Back the Research</h3>
+          <p className="text-[11px] text-gray-500 leading-tight">Your support helps us keep the AI water index live and transparent.</p>
+        </div>
+
+        <div className="space-y-2 mt-4">
+          <button
+            onClick={() => copy(addresses.eth, 'eth')}
+            className="w-full bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg p-2 flex items-center justify-between transition-all group/btn active:scale-[0.98]"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono text-gray-400">ETH</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-mono text-gray-600 truncate w-24">{addresses.eth}</span>
+              <span className="text-[9px] text-cyan-400 font-bold uppercase">{copied === 'eth' ? 'COPIED' : 'COPY'}</span>
+            </div>
+          </button>
+
+          <button
+            onClick={() => copy(addresses.sol, 'sol')}
+            className="w-full bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg p-2 flex items-center justify-between transition-all group/btn active:scale-[0.98]"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono text-gray-400">SOL</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-mono text-gray-600 truncate w-24">{addresses.sol}</span>
+              <span className="text-[9px] text-yellow-500 font-bold uppercase">{copied === 'sol' ? 'COPIED' : 'COPY'}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Decorative Glow */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 to-transparent pointer-events-none"></div>
+    </div>
+  );
+};
+
 // --- VERI ---
 const models = [
   { id: "mistral", name: "Mistral 7B", water: 4.5, grade: "A+" },
@@ -95,20 +164,20 @@ export default function Home() {
           </div>
 
           {/* Leaderboard */}
-          <div className="md:col-span-1 md:row-span-2 glass rounded-2xl p-0 overflow-hidden flex flex-col">
+          <div className="md:col-span-1 md:row-span-1 glass rounded-2xl p-0 overflow-hidden flex flex-col">
             <div className="p-6 border-b border-white/5 flex justify-between items-center">
               <h3 className="text-white font-bold text-sm">Efficiency Index</h3>
               <IconZap />
             </div>
-            <div className="flex-1 overflow-y-auto max-h-[400px]">
+            <div className="flex-1 overflow-y-auto max-h-[180px]">
               {models.map((m, i) => (
-                <div key={m.id} className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
+                <div key={m.id} className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 text-xs">
                   <div>
-                    <div className="text-sm font-medium text-white">{m.name}</div>
-                    <div className="text-xs text-gray-500">{m.water}ml / query</div>
+                    <div className="font-medium text-white">{m.name}</div>
+                    <div className="text-gray-500">{m.water}ml / query</div>
                   </div>
                   <div className={`
-                    w-8 h-8 rounded flex items-center justify-center font-bold text-xs border
+                    w-6 h-6 rounded flex items-center justify-center font-bold border
                     ${m.grade.startsWith('A') ? 'border-green-500/30 text-green-400 bg-green-500/10' :
                       'border-red-500/30 text-red-400 bg-red-500/10'}
                   `}>
@@ -118,6 +187,9 @@ export default function Home() {
               ))}
             </div>
           </div>
+
+          {/* Crypto Donation Widget */}
+          <CryptoDonation />
         </div>
 
         {/* Scroll Indicator */}
