@@ -367,6 +367,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* --- SECTION 5: FAQ & RESEARCH (SEO) --- */}
+      <section className="py-24 px-4 border-t border-white/5 bg-[#050505]">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-12 text-center tracking-tighter uppercase font-mono text-gray-500">Frequently Asked Questions & Research Data</h2>
+
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-lg font-bold mb-3 text-white">How much water does ChatGPT consume per query?</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">
+                Recent research from <span className="text-cyan-400">UC Riverside</span> and Cornell University indicates that a typical conversation of 20-50 queries with GPT-4 can consume roughly 500ml of water. This <span className="text-white">AI water footprint</span> varies significantly based on the model complexity (GPT-4 vs GPT-3.5), the location of the data center, and the local Power Usage Effectiveness (PUE) of the cooling infrastructure.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-3 text-white">Why do data centers need water for AI?</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">
+                Training and running <span className="text-white">Large Language Models (LLMs)</span> generates massive thermal energy. To prevent hardware failure, data centers use evaporative cooling towers. This process dissipates heat by evaporating clean water into the atmosphere. Additionally, the electricity generation required to power these GPUs carries a significant indirect water footprint at the source.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-3 text-white">What is the environmental impact of Large Language Models (LLMs)?</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">
+                Beyond electricity consumption, the physical cost of <span className="text-white">Green AI</span> is measured in water scarcity and carbon output. As data center water usage 2026 projections show exponential growth, initiatives like Waterbuss aim to provide transparency into the <span className="text-cyan-400">Sustainable computing</span> metrics required for responsible AI deployment and global resource management.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16 pt-8 border-t border-white/5 text-center">
+            <p className="text-[10px] text-gray-600 font-mono tracking-widest uppercase">
+              Keywords: AI water footprint, LLM environmental impact, Green AI, Sustainable computing, Data center water usage 2026.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="mt-12 text-center border-t border-white/5 pt-12 pb-8">
         <h3 className="text-white font-bold text-lg mb-2">WATERBUSS</h3>

@@ -45,6 +45,25 @@ export default function RootLayout({
           `
         }} />
         {/* End Google tag (gtag.js) */}
+        {/* Schema Markup (JSON-LD) */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Waterbuss",
+            "url": "https://waterbuss.com",
+            "description": "Real-time index tracking the global water consumption of Artificial Intelligence models like ChatGPT, Gemini, and Claude.",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "All",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": "AI Water Footprint Calculator, Live Consumption Counter, Model Comparison"
+          })
+        }} />
+        {/* End Schema Markup */}
         {/* BU SATIR STİLLERİ ZORLA ÇALIŞTIRACAK 👇 */}
         <script src="https://cdn.tailwindcss.com"></script>
         <script dangerouslySetInnerHTML={{
