@@ -33,6 +33,18 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','GTM-NL9M86PB');`
         }} />
         {/* End Google Tag Manager */}
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-20024WDQTF"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-20024WDQTF');
+          `
+        }} />
+        {/* End Google tag (gtag.js) */}
         {/* BU SATIR STİLLERİ ZORLA ÇALIŞTIRACAK 👇 */}
         <script src="https://cdn.tailwindcss.com"></script>
         <script dangerouslySetInnerHTML={{
