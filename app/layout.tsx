@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "WATERBUSS | AI Water Consumption Index",
@@ -24,46 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
-        <script dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-NL9M86PB');`
-        }} />
-        {/* End Google Tag Manager */}
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-20024WDQTF"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-20024WDQTF');
-          `
-        }} />
-        {/* End Google tag (gtag.js) */}
-        {/* Schema Markup (JSON-LD) */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Waterbuss",
-            "url": "https://waterbuss.com",
-            "description": "Real-time index tracking the global water consumption of Artificial Intelligence models like ChatGPT, Gemini, and Claude.",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "All",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": "AI Water Footprint Calculator, Live Consumption Counter, Model Comparison"
-          })
-        }} />
-        {/* End Schema Markup */}
         {/* BU SATIR STİLLERİ ZORLA ÇALIŞTIRACAK 👇 */}
         <script src="https://cdn.tailwindcss.com"></script>
         <script dangerouslySetInnerHTML={{
@@ -89,18 +50,66 @@ export default function RootLayout({
           .glass { background: rgba(20,20,20,0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
           .glow-text { text-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
         `}</style>
+
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-20024WDQTF"
+        />
+        <Script
+          id="gtag-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-20024WDQTF');
+            `,
+          }}
+        />
+
+        {/* Google Tag Manager */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-NL9M86PB');
+            `,
+          }}
+        />
+
+        {/* Schema Markup (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Waterbuss",
+              "url": "https://waterbuss.com",
+              "description": "Real-time index tracking the global water consumption of Artificial Intelligence models like ChatGPT, Gemini, and Claude.",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "All",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "featureList": "AI Water Footprint Calculator, Live Consumption Counter, Model Comparison"
+            })
+          }}
+        />
       </head>
       <body>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NL9M86PB"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          ></iframe>
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
+        <noscript dangerouslySetInnerHTML={{
+          __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NL9M86PB" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
+        }} />
         {children}
         <Analytics />
       </body>
