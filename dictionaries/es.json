@@ -1,0 +1,88 @@
+{
+    "ticker": {
+        "consumption_spike": "EN VIVO: El consumo global de agua en los centros de datos aumenta un 12% durante las horas pico.",
+        "report_training": "INFORME: El entrenamiento de un solo modelo grande evapora 700.000 litros de agua limpia.",
+        "update_cooling": "ACTUALIZACIÓN: Se despliegan nuevos sistemas de enfriamiento eficientes en las regiones nórdicas.",
+        "status_tracking": "ESTADO: Seguimiento de más de 15.000 clústeres de GPUs activos en todo el mundo."
+    },
+    "dashboard": {
+        "live_consumption": "Consumo Global en Vivo",
+        "consumption_rate": "+3.500 L / segundo",
+        "description": "Cada consulta tiene un costo físico. Visualizando la huella hídrica invisible de la infraestructura de computación global."
+    },
+    "calculator": {
+        "title": "Calculadora de Impacto",
+        "daily_prompts": "Consultas Diarias",
+        "model": "Modelo",
+        "annual_footprint": "Su Huella Anual",
+        "share_button": "Compartir Mi Impacto",
+        "share_text": "¡Acabo de descubrir que mi uso de IA consume {footprint} litros de agua al año! 💧 Consulta tu huella en"
+    },
+    "efficiency": {
+        "title": "Índice de Eficiencia"
+    },
+    "support": {
+        "title": "Apóyanos",
+        "description": "Ayuda a mantener los servidores en funcionamiento.",
+        "copy": "COPIAR",
+        "copied": "¡COPIADO!"
+    },
+    "research": {
+        "title": "¿Por qué los modelos de IA consumen agua?",
+        "subtitle": "Generar texto requiere una energía masiva, lo que crea un calor masivo.",
+        "compute_heat": {
+            "title": "1. Calor de Computación",
+            "text": "Las GPUs funcionan al 100% de su capacidad para procesar miles de millones de parámetros. Esta fricción genera temperaturas extremas, similar al acelerar el motor de un coche."
+        },
+        "evaporative_cooling": {
+            "title": "2. Enfriamiento por Evaporación",
+            "text": "Para evitar que se derritan, los centros de datos utilizan torres de enfriamiento basadas en agua. El agua se evapora para eliminar el calor, consumiendo agua limpia en el proceso."
+        },
+        "power_generation": {
+            "title": "3. Generación de Energía",
+            "text": "La electricidad que alimenta los servidores también consume agua en su origen (hidroeléctrica, nuclear o turbinas de vapor de carbón), añadiendo costos ocultos."
+        }
+    },
+    "perspective": {
+        "label": "Perspectiva",
+        "title": "¿Qué son 50 consultas?",
+        "text": "Escribir un ensayo largo o una sesión de programación con GPT-4 (aprox. 50 turnos) consume aproximadamente la misma cantidad de agua que una botella de agua estándar de 500 ml.",
+        "plastic_bottle": "1 Botella de Plástico"
+    },
+    "badge": {
+        "title": "Muestra tu Compromiso con la IA Verde",
+        "subtitle": "Añade el distintivo Waterbuss en vivo a tu proyecto. Es gratis y aumenta la concienciación.",
+        "preview": "Vista Previa del Distintivo",
+        "label": "Rastreado por WATERBUSS",
+        "copy_button": "COPIAR SNIPPET HTML",
+        "copied_button": "✅ ¡COPIADO AL PORTAPAPELES!"
+    },
+    "faq": {
+        "title": "Preguntas Frecuentes y Datos de Investigación",
+        "q1": {
+            "q": "¿Cuánta agua consume ChatGPT por consulta?",
+            "a": "Investigaciones recientes de UC Riverside y la Universidad de Cornell indican que una conversación típica de 20-50 consultas con GPT-4 puede consumir aproximadamente 500 ml de agua. Esta huella hídrica de la IA varía significativamente según la complejidad del modelo (GPT-4 frente a GPT-3.5), la ubicación del centro de datos y la Eficacia del Uso de la Energía (PUE) local de la infraestructura de enfriamiento."
+        },
+        "q2": {
+            "q": "¿Por qué los centros de datos necesitan agua para la IA?",
+            "a": "El entrenamiento y la ejecución de Modelos de Lenguaje Extensos (LLMs) genera una energía térmica masiva. Para evitar fallos de hardware, los centros de datos utilizan torres de enfriamiento por evaporación. Este proceso disipa el calor evaporando agua limpia a la atmósfera. Además, la generación de electricidad necesaria para alimentar estas GPUs conlleva una huella hídrica indirecta significativa en su origen."
+        },
+        "q3": {
+            "q": "¿Cuál es el impacto ambiental de los Modelos de Lenguaje Extensos (LLMs)?",
+            "a": "Más allá del consumo de electricidad, el costo físico de la IA Verde se mide en la escasez de agua y la emisión de carbono. A medida que las proyecciones de uso de agua de los centros de datos para 2026 muestran un crecimiento exponencial, iniciativas como Waterbuss pretenden aportar transparencia a las métricas de Computación Sostenible necesarias para un despliegue responsable de la IA y la gestión global de recursos."
+        },
+        "keywords": "Palabras clave: huella hídrica de la IA, impacto ambiental de los LLM, IA Verde, Computación Sostenible, uso de agua en centros de datos 2026."
+    },
+    "footer": {
+        "description": "Construyendo el futuro sostenible de la IA.",
+        "copyright": "© 2026 Waterbuss. Proyecto de Código Abierto.",
+        "created_by": "Creado por WaterlessAI"
+    },
+    "methodology": {
+        "title": "Cómo Calculamos",
+        "p1": "Las estimaciones se basan en el estándar de la industria de 500 ml de consumo de agua por cada 20-50 consultas (variando según la eficiencia del modelo y la tecnología de enfriamiento).",
+        "p2": "El uso de electricidad incluye una Eficacia del Uso de la Energía (PUE) de 1,58.",
+        "source": "Fuente: Investigación de la Universidad de California, Riverside y la Universidad de Cornell (2024).",
+        "button": "ENTENDIDO"
+    }
+}

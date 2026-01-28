@@ -1,0 +1,88 @@
+{
+    "ticker": {
+        "consumption_spike": "CANLI: Küresel veri merkezi su tüketimi yoğun saatlerde %12 artış gösteriyor.",
+        "report_training": "RAPOR: Tek bir büyük modelin eğitilmesi 700.000 litre temiz suyu buharlaştırıyor.",
+        "update_cooling": "GÜNCELLEME: İskandinav bölgelerinde yeni verimli soğutma sistemleri devreye alındı.",
+        "status_tracking": "DURUM: Dünya çapında 15.000'den fazla aktif GPU kümesi takip ediliyor."
+    },
+    "dashboard": {
+        "live_consumption": "Canlı Küresel Tüketim",
+        "consumption_rate": "+3.500 L / saniye",
+        "description": "Her sorgunun fiziksel bir maliyeti vardır. Küresel bilgi işlem altyapısının görünmez su ayak izini görselleştiriyoruz."
+    },
+    "calculator": {
+        "title": "Etki Hesaplayıcı",
+        "daily_prompts": "Günlük Sorgu",
+        "model": "Model",
+        "annual_footprint": "Yıllık Ayak İziniz",
+        "share_button": "Etkimi Paylaş",
+        "share_text": "Yıllık AI kullanımımın {footprint} litre su tükettiğini öğrendim! 💧 Ayak izinizi buradan kontrol edin:"
+    },
+    "efficiency": {
+        "title": "Verimlilik Endeksi"
+    },
+    "support": {
+        "title": "Bizi Destekleyin",
+        "description": "Sunucuların çalışmaya devam etmesine yardımcı olun.",
+        "copy": "KOPYALA",
+        "copied": "KOPYALANDI!"
+    },
+    "research": {
+        "title": "AI Modelleri Neden Su Tüketir?",
+        "subtitle": "Metin oluşturmak devasa enerji gerektirir ve bu da devasa ısı üretir.",
+        "compute_heat": {
+            "title": "1. Bilgi İşlem Isısı",
+            "text": "GPU'lar milyarlarca parametreyi işlemek için %100 kapasitede çalışır. Bu sürtünme, bir araba motorunun devir yapmasına benzer şekilde aşırı sıcaklıklar üretir."
+        },
+        "evaporative_cooling": {
+            "title": "2. Evaporatif Soğutma",
+            "text": "Erimeyi önlemek için veri merkezleri su tabanlı soğutma kuleleri kullanır. Isıyı uzaklaştırmak için su buharlaştırılır ve bu süreçte temiz su tüketilir."
+        },
+        "power_generation": {
+            "title": "3. Güç Üretimi",
+            "text": "Sunuculara güç sağlayan elektrik de kaynağında (hidroelektrik, nükleer veya kömürlü buhar türbinleri) su tüketerek gizli maliyetler ekler."
+        }
+    },
+    "perspective": {
+        "label": "Perspektif",
+        "title": "50 Sorgu Nedir?",
+        "text": "GPT-4 ile uzun bir makale yazmak veya kodlama oturumu yapmak (yaklaşık 50 tur), standart bir 500 ml'lik su şişesiyle yaklaşık aynı miktarda su tüketir.",
+        "plastic_bottle": "1 Plastik Şişe"
+    },
+    "badge": {
+        "title": "Yeşil AI Bağlılığınızı Gösterin",
+        "subtitle": "Projenize canlı Waterbuss rozetini ekleyin. Ücretsizdir ve farkındalığı artırır.",
+        "preview": "Rozet Önizleme",
+        "label": "WATERBUSS tarafından takip ediliyor",
+        "copy_button": "HTML KODUNU KOPYALA",
+        "copied_button": "✅ PANEYE KOPYALANDI!"
+    },
+    "faq": {
+        "title": "Sıkça Sorulan Sorular ve Araştırma Verileri",
+        "q1": {
+            "q": "ChatGPT sorgu başına ne kadar su tüketir?",
+            "a": "UC Riverside ve Cornell Üniversitesi'nden yapılan son araştırmalar, GPT-4 ile 20-50 sorguluk tipik bir görüşmenin yaklaşık 500 ml su tüketebileceğini göstermektedir. Bu AI su ayak izi, model karmaşıklığına (GPT-4 vs GPT-3.5), veri merkezinin konumuna ve soğutma altyapısının yerel Güç Kullanım Verimliliğine (PUE) bağlı olarak önemli ölçüde değişir."
+        },
+        "q2": {
+            "q": "Veri merkezleri AI için neden suya ihtiyaç duyar?",
+            "a": "Büyük Dil Modellerini (LLM'ler) eğitmek ve çalıştırmak devasa termal enerji üretir. Donanım arızasını önlemek için veri merkezleri evaporatif soğutma kuleleri kullanır. Bu süreç, temiz suyu atmosfere buharlaştırarak ısıyı dağıtır. Ek olarak, bu GPU'ları beslemek için gereken elektrik üretimi de kaynağında önemli bir dolaylı su ayak izi taşır."
+        },
+        "q3": {
+            "q": "Büyük Dil Modellerinin (LLM'lerin) çevresel etkisi nedir?",
+            "a": "Elektrik tüketiminin ötesinde, Yeşil AI'nın fiziksel maliyeti su kıtlığı ve karbon çıktısı ile ölçülür. 2026 yılı veri merkezi su kullanımı projeksiyonları eksponansiyel büyüme gösterirken, Waterbuss gibi girişimler sorumlu AI dağıtımı ve küresel kaynak yönetimi için gereken Sürdürülebilir bilgi işlem metriklerine şeffaflık getirmeyi amaçlamaktadır."
+        },
+        "keywords": "Anahtar Kelimeler: AI su ayak izi, LLM çevresel etkisi, Yeşil AI, Sürdürülebilir bilgi işlem, Veri merkezi su kullanımı 2026."
+    },
+    "footer": {
+        "description": "AI'nın sürdürülebilir geleceğini inşa ediyoruz.",
+        "copyright": "© 2026 Waterbuss. Açık Kaynak Projesi.",
+        "created_by": "WaterlessAI tarafından tasarlandı"
+    },
+    "methodology": {
+        "title": "Nasıl Hesaplıyoruz",
+        "p1": "Tahminler, 20-50 sorgu başına 500 ml su tüketimi şeklindeki endüstri standardına dayanmaktadır (model verimliliği ve soğutma teknolojisine göre değişir).",
+        "p2": "Elektrik kullanımı, 1.58'lik Güç Kullanım Verimliliğini (PUE) içerir.",
+        "source": "Kaynak: Kaliforniya Üniversitesi, Riverside ve Cornell Üniversitesi Araştırması (2024).",
+        "button": "ANLADIM"
+    }
+}

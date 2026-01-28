@@ -1,0 +1,88 @@
+{
+    "ticker": {
+        "consumption_spike": "LIVE: Global data center water consumption spikes by 12% during peak hours.",
+        "report_training": "REPORT: Training a single large model evaporates 700,000 liters of clean water.",
+        "update_cooling": "UPDATE: New efficient cooling systems deployed in Nordic regions.",
+        "status_tracking": "STATUS: Tracking 15,000+ active GPU clusters worldwide."
+    },
+    "dashboard": {
+        "live_consumption": "Live Global Consumption",
+        "consumption_rate": "+3,500 L / second",
+        "description": "Every query has a physical cost. Visualizing the invisible water footprint of global compute infrastructure."
+    },
+    "calculator": {
+        "title": "Impact Calculator",
+        "daily_prompts": "Daily Prompts",
+        "model": "Model",
+        "annual_footprint": "Your Annual Footprint",
+        "share_button": "Share My Impact",
+        "share_text": "I just found out my AI usage consumes {footprint} Liters of water annually! 💧 Check your footprint at"
+    },
+    "efficiency": {
+        "title": "Efficiency Index"
+    },
+    "support": {
+        "title": "Support Us",
+        "description": "Help keep the servers running.",
+        "copy": "COPY",
+        "copied": "COPIED!"
+    },
+    "research": {
+        "title": "Why Do AI Models Drink Water?",
+        "subtitle": "Generating text requires massive energy, which creates massive heat.",
+        "compute_heat": {
+            "title": "1. Compute Heat",
+            "text": "GPUs run at 100% capacity to process billions of parameters. This friction generates extreme temperatures, similar to a car engine revving."
+        },
+        "evaporative_cooling": {
+            "title": "2. Evaporative Cooling",
+            "text": "To prevent melting, Data Centers use water-based cooling towers. Water is evaporated to remove heat, consuming clean water in the process."
+        },
+        "power_generation": {
+            "title": "3. Power Generation",
+            "text": "The electricity powering the servers also consumes water at the source (hydroelectric, nuclear, or coal steam turbines), adding hidden costs."
+        }
+    },
+    "perspective": {
+        "label": "Perspective",
+        "title": "What is 50 Queries?",
+        "text": "Writing a long essay or coding session with GPT-4 (approx. 50 turns) consumes roughly the same amount of water as a standard 16oz (500ml) water bottle.",
+        "plastic_bottle": "1 Plastic Bottle"
+    },
+    "badge": {
+        "title": "Show Your Commitment to Green AI",
+        "subtitle": "Add the live Waterbuss badge to your project. It's free and raises awareness.",
+        "preview": "Badge Preview",
+        "label": "Tracked by WATERBUSS",
+        "copy_button": "COPY HTML SNIPPET",
+        "copied_button": "✅ COPIED TO CLIPBOARD!"
+    },
+    "faq": {
+        "title": "Frequently Asked Questions & Research Data",
+        "q1": {
+            "q": "How much water does ChatGPT consume per query?",
+            "a": "Recent research from UC Riverside and Cornell University indicates that a typical conversation of 20-50 queries with GPT-4 can consume roughly 500ml of water. This AI water footprint varies significantly based on the model complexity (GPT-4 vs GPT-3.5), the location of the data center, and the local Power Usage Effectiveness (PUE) of the cooling infrastructure."
+        },
+        "q2": {
+            "q": "Why do data centers need water for AI?",
+            "a": "Training and running Large Language Models (LLMs) generates massive thermal energy. To prevent hardware failure, data centers use evaporative cooling towers. This process dissipates heat by evaporating clean water into the atmosphere. Additionally, the electricity generation required to power these GPUs carries a significant indirect water footprint at the source."
+        },
+        "q3": {
+            "q": "What is the environmental impact of Large Language Models (LLMs)?",
+            "a": "Beyond electricity consumption, the physical cost of Green AI is measured in water scarcity and carbon output. As data center water usage 2026 projections show exponential growth, initiatives like Waterbuss aim to provide transparency into the Sustainable computing metrics required for responsible AI deployment and global resource management."
+        },
+        "keywords": "Keywords: AI water footprint, LLM environmental impact, Green AI, Sustainable computing, Data center water usage 2026."
+    },
+    "footer": {
+        "description": "Building the sustainable future of AI.",
+        "copyright": "© 2026 Waterbuss. Open Source Project.",
+        "created_by": "Created by WaterlessAI"
+    },
+    "methodology": {
+        "title": "How We Calculate",
+        "p1": "Estimates are based on the industry standard of 500ml water consumption per 20-50 queries (varying by model efficiency and cooling tech).",
+        "p2": "Electricity usage includes Power Usage Effectiveness (PUE) of 1.58.",
+        "source": "Source: University of California, Riverside & Cornell University Research (2024).",
+        "button": "GOT IT"
+    }
+}

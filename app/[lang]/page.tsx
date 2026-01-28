@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { useParams, useRouter, usePathname } from 'next/navigation';
 
 // --- ICONS ---
 const IconWater = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00F0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg>;
@@ -8,6 +9,7 @@ const IconServer = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" heig
 const IconCloud = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>;
 const IconHeat = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22h5.61a2 2 0 0 0 1.91-2.54L13 13"></path></svg>;
 const IconTwitter = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>;
+const IconGlobe = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>;
 
 // --- DATA ---
 const models = [
@@ -52,6 +54,12 @@ const TiltCard = ({ children, className }: { children: React.ReactNode, classNam
 };
 
 export default function Home() {
+  const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const lang = params.lang as string;
+
+  const [dict, setDict] = useState<any>(null);
   const [count, setCount] = useState(50322281392);
   const [prompts, setPrompts] = useState(1000);
   const [selectedModel, setSelectedModel] = useState(models[0].id);
@@ -59,21 +67,35 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    import(`../../dictionaries/${lang}.json`).then((module) => {
+      setDict(module.default);
+    });
+  }, [lang]);
+
+  useEffect(() => {
     const interval = setInterval(() => setCount(c => c + 3500), 1000);
     return () => clearInterval(interval);
   }, []);
+
+  if (!dict) return null;
 
   const activeModel = models.find(m => m.id === selectedModel) || models[0];
   const footprint = (prompts * 365 * activeModel.water) / 1000;
 
   // Viral Share Logic
-  const shareText = `I just found out my AI usage consumes ${footprint.toFixed(0)} Liters of water annually! 💧 Check your footprint at`;
+  const shareText = dict.calculator.share_text.replace("{footprint}", footprint.toFixed(0));
   const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=https://waterbuss.com&hashtags=GreenAI,Waterbuss`;
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
     setCopied(type);
     setTimeout(() => setCopied(""), 2000);
+  };
+
+  const changeLanguage = (newLang: string) => {
+    const segments = pathname.split('/');
+    segments[1] = newLang;
+    router.push(segments.join('/'));
   };
 
   return (
@@ -96,27 +118,46 @@ export default function Home() {
       {/* --- LIVE NEWS TICKER --- */}
       <div className="sticky top-0 z-[100] bg-[#0A0A0A] border-b border-white/5 py-2 overflow-hidden select-none">
         <div className="animate-marquee whitespace-nowrap flex items-center gap-12 text-[10px] font-mono tracking-widest uppercase">
-          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> LIVE: Global data center water consumption spikes by 12% during peak hours.</span>
-          <span className="text-gray-400">📈 REPORT: Training a single large model evaporates 700,000 liters of clean water.</span>
-          <span className="text-cyan-400">💧 UPDATE: New efficient cooling systems deployed in Nordic regions.</span>
-          <span className="text-gray-400">📡 STATUS: Tracking 15,000+ active GPU clusters worldwide.</span>
+          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> {dict.ticker.consumption_spike}</span>
+          <span className="text-gray-400">📈 {dict.ticker.report_training}</span>
+          <span className="text-cyan-400">💧 {dict.ticker.update_cooling}</span>
+          <span className="text-gray-400">📡 {dict.ticker.status_tracking}</span>
           {/* Duplicate for infinite loop */}
-          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> LIVE: Global data center water consumption spikes by 12% during peak hours.</span>
-          <span className="text-gray-400">📈 REPORT: Training a single large model evaporates 700,000 liters of clean water.</span>
-          <span className="text-cyan-400">💧 UPDATE: New efficient cooling systems deployed in Nordic regions.</span>
-          <span className="text-gray-400">📡 STATUS: Tracking 15,000+ active GPU clusters worldwide.</span>
+          <span className="text-cyan-400"><span className="text-red-500 mr-2">⚠️</span> {dict.ticker.consumption_spike}</span>
+          <span className="text-gray-400">📈 {dict.ticker.report_training}</span>
+          <span className="text-cyan-400">💧 {dict.ticker.update_cooling}</span>
+          <span className="text-gray-400">📡 {dict.ticker.status_tracking}</span>
         </div>
       </div>
 
       {/* --- DASHBOARD SECTION --- */}
       <section className="p-4 md:p-8 max-w-7xl mx-auto min-h-screen flex flex-col">
         {/* Header */}
-        <header className="flex items-center mb-8 px-2 border-b border-white/5 pb-4 mt-4">
+        <header className="flex items-center justify-between mb-8 px-2 border-b border-white/5 pb-4 mt-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-cyan-900/30 rounded flex items-center justify-center border border-cyan-500/30">
               <IconWater />
             </div>
             <h1 className="text-xl font-bold tracking-tight text-white">WATERBUSS</h1>
+          </div>
+
+          {/* Language Switcher */}
+          <div className="flex items-center gap-4">
+            <div className="group relative flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full hover:border-cyan-500/50 transition-all cursor-pointer">
+              <IconGlobe />
+              <span className="text-[10px] font-mono uppercase tracking-widest">{lang}</span>
+              <div className="absolute top-full right-0 mt-2 w-32 bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden hidden group-hover:block z-[110] shadow-2xl animate-in fade-in slide-in-from-top-1">
+                {['en', 'tr', 'es', 'zh'].map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => changeLanguage(l)}
+                    className={`w-full text-left px-4 py-2 text-[10px] font-mono uppercase hover:bg-white/5 transition-colors ${lang === l ? 'text-cyan-400' : 'text-gray-400'}`}
+                  >
+                    {l === 'en' ? 'English' : l === 'tr' ? 'Türkçe' : l === 'es' ? 'Español' : '中文'}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </header>
 
@@ -126,15 +167,15 @@ export default function Home() {
           {/* Main Counter */}
           <div className="md:col-span-2 md:row-span-2 glass rounded-2xl p-8 relative overflow-hidden group flex flex-col justify-center w-full">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-            <h2 className="text-gray-500 text-[10px] sm:text-xs font-mono uppercase tracking-widest mb-4">Live Global Consumption</h2>
+            <h2 className="text-gray-500 text-[10px] sm:text-xs font-mono uppercase tracking-widest mb-4">{dict.dashboard.live_consumption}</h2>
             <div className="text-3xl sm:text-4xl md:text-7xl font-bold font-mono text-white glow-text tracking-tighter transition-all break-all">
               {count.toLocaleString()}
             </div>
             <div className="text-cyan-400 text-sm mt-4 font-mono">
-              +3,500 L / second
+              {dict.dashboard.consumption_rate}
             </div>
             <p className="text-gray-400 text-sm mt-8 max-w-md leading-relaxed">
-              Every query has a physical cost. Visualizing the invisible water footprint of global compute infrastructure.
+              {dict.dashboard.description}
             </p>
           </div>
 
@@ -145,7 +186,7 @@ export default function Home() {
             <div>
               <div className="text-white font-bold mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  Impact Calculator
+                  {dict.calculator.title}
                 </div>
                 <button
                   onClick={() => setIsModalOpen(true)}
@@ -156,7 +197,7 @@ export default function Home() {
               </div>
               <div className="space-y-6">
                 <div>
-                  <label className="text-xs text-gray-500 font-mono uppercase block mb-2">Daily Prompts</label>
+                  <label className="text-xs text-gray-500 font-mono uppercase block mb-2">{dict.calculator.daily_prompts}</label>
                   <input
                     type="range" min="100" max="10000" step="100"
                     value={prompts} onChange={(e) => setPrompts(Number(e.target.value))}
@@ -165,7 +206,7 @@ export default function Home() {
                   <div className="text-right text-white font-mono mt-2">{prompts.toLocaleString()}</div>
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500 font-mono uppercase block mb-2">Model</label>
+                  <label className="text-xs text-gray-500 font-mono uppercase block mb-2">{dict.calculator.model}</label>
                   <select
                     value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}
                     className="w-full bg-[#1A1A1A] border border-white/10 rounded-lg p-3 text-sm text-white outline-none focus:border-yellow-500"
@@ -177,7 +218,7 @@ export default function Home() {
             </div>
 
             <div className="mt-8 pt-6 border-t border-white/10 text-center">
-              <div className="text-xs text-gray-500 mb-1 font-mono uppercase">Your Annual Footprint</div>
+              <div className="text-xs text-gray-500 mb-1 font-mono uppercase">{dict.calculator.annual_footprint}</div>
               <div className="text-4xl font-bold text-white tracking-tighter mb-4">
                 {footprint.toFixed(0)}<span className="text-lg text-gray-600">L</span>
               </div>
@@ -188,7 +229,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors text-sm"
               >
-                <IconTwitter /> Share My Impact
+                <IconTwitter /> {dict.calculator.share_button}
               </a>
             </div>
           </div>
@@ -196,7 +237,7 @@ export default function Home() {
           {/* Leaderboard */}
           <div className="md:col-span-1 md:row-span-1 glass rounded-2xl p-0 overflow-hidden flex flex-col">
             <div className="p-4 border-b border-white/5 flex justify-between items-center">
-              <h3 className="text-white font-bold text-sm">Efficiency Index</h3>
+              <h3 className="text-white font-bold text-sm">{dict.efficiency.title}</h3>
             </div>
             <div className="flex-1 overflow-y-auto">
               {models.map((m, i) => (
@@ -215,13 +256,13 @@ export default function Home() {
           <div className="md:col-span-1 md:row-span-1 bg-[#0A0A0A] border border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition-colors">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-cyan-400 uppercase">Support Us</span>
+                <span className="text-xs font-bold text-cyan-400 uppercase">{dict.support.title}</span>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                   <div className="w-2 h-2 rounded-full bg-purple-500"></div>
                 </div>
               </div>
-              <p className="text-xs text-gray-400 mb-3">Help keep the servers running.</p>
+              <p className="text-xs text-gray-400 mb-3">{dict.support.description}</p>
             </div>
 
             <div className="space-y-2">
@@ -230,14 +271,14 @@ export default function Home() {
                 className="w-full bg-white/5 hover:bg-white/10 border border-white/5 rounded px-3 py-2 flex items-center justify-between text-xs text-gray-300 transition-all"
               >
                 <span>ETH</span>
-                <span className="text-[10px] opacity-50">{copied === "ETH" ? "COPIED!" : "COPY"}</span>
+                <span className="text-[10px] opacity-50">{copied === "ETH" ? dict.support.copied : dict.support.copy}</span>
               </button>
               <button
                 onClick={() => copyToClipboard("Do5HQqBbqeENamYEsUb3fTP3vQLnpGigdpHvYpDH8ADh", "SOL")}
                 className="w-full bg-white/5 hover:bg-white/10 border border-white/5 rounded px-3 py-2 flex items-center justify-between text-xs text-gray-300 transition-all"
               >
                 <span>SOL</span>
-                <span className="text-[10px] opacity-50">{copied === "SOL" ? "COPIED!" : "COPY"}</span>
+                <span className="text-[10px] opacity-50">{copied === "SOL" ? dict.support.copied : dict.support.copy}</span>
               </button>
             </div>
           </div>
@@ -253,9 +294,9 @@ export default function Home() {
       <section className="py-24 px-4 border-t border-white/5 bg-gradient-to-b from-[#050505] to-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Why Do AI Models Drink Water?</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">{dict.research.title}</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Generating text requires massive energy, which creates massive heat.
+              {dict.research.subtitle}
             </p>
           </div>
 
@@ -264,9 +305,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 group-hover:text-cyan-400 transition-colors">
                 <IconServer />
               </div>
-              <h3 className="text-xl font-bold mb-3">1. Compute Heat</h3>
+              <h3 className="text-xl font-bold mb-3">{dict.research.compute_heat.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                GPUs run at 100% capacity to process billions of parameters. This friction generates extreme temperatures, similar to a car engine revving.
+                {dict.research.compute_heat.text}
               </p>
             </TiltCard>
 
@@ -274,9 +315,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 group-hover:text-cyan-400 transition-colors">
                 <IconHeat />
               </div>
-              <h3 className="text-xl font-bold mb-3">2. Evaporative Cooling</h3>
+              <h3 className="text-xl font-bold mb-3">{dict.research.evaporative_cooling.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                To prevent melting, Data Centers use water-based cooling towers. Water is evaporated to remove heat, consuming clean water in the process.
+                {dict.research.evaporative_cooling.text}
               </p>
             </TiltCard>
 
@@ -284,9 +325,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 group-hover:text-cyan-400 transition-colors">
                 <IconCloud />
               </div>
-              <h3 className="text-xl font-bold mb-3">3. Power Generation</h3>
+              <h3 className="text-xl font-bold mb-3">{dict.research.power_generation.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                The electricity powering the servers also consumes water at the source (hydroelectric, nuclear, or coal steam turbines), adding hidden costs.
+                {dict.research.power_generation.text}
               </p>
             </TiltCard>
           </div>
@@ -299,16 +340,16 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-50"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-2">Perspective</h3>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">What is 50 Queries?</h2>
+              <h3 className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-2">{dict.perspective.label}</h3>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">{dict.perspective.title}</h2>
               <p className="text-gray-400 leading-relaxed mb-6">
-                Writing a long essay or coding session with GPT-4 (approx. 50 turns) consumes roughly the same amount of water as a standard 16oz (500ml) water bottle.
+                {dict.perspective.text}
               </p>
             </div>
             <div className="relative h-64 bg-black/50 rounded-xl border border-white/10 flex items-center justify-center overflow-hidden">
               <div className="text-center animate-pulse">
                 <div className="text-6xl mb-2">🧴</div>
-                <div className="text-xs text-gray-500 uppercase">1 Plastic Bottle</div>
+                <div className="text-xs text-gray-500 uppercase">{dict.perspective.plastic_bottle}</div>
               </div>
             </div>
           </div>
@@ -319,15 +360,15 @@ export default function Home() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Show Your Commitment to Green AI</h2>
-          <p className="text-gray-400 mb-12">Add the live Waterbuss badge to your project. It's free and raises awareness.</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">{dict.badge.title}</h2>
+          <p className="text-gray-400 mb-12">{dict.badge.subtitle}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
             {/* Preview */}
             <div className="glass p-6 md:p-8 rounded-2xl flex flex-col items-center justify-center border border-white/5">
-              <span className="text-[10px] text-gray-500 uppercase font-mono mb-6">Badge Preview</span>
+              <span className="text-[10px] text-gray-500 uppercase font-mono mb-6">{dict.badge.preview}</span>
               <a
-                href="https://waterbuss.com"
+                href={`https://waterbuss.com/${lang}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -345,7 +386,7 @@ export default function Home() {
                   fontWeight: 'bold'
                 }}
               >
-                <span style={{ color: '#00F0FF' }}>💧</span> Tracked by WATERBUSS
+                <span style={{ color: '#00F0FF' }}>💧</span> {dict.badge.label}
               </a>
             </div>
 
@@ -353,14 +394,14 @@ export default function Home() {
             <div className="space-y-4">
               <div className="bg-black/60 rounded-xl p-4 border border-white/10 relative group">
                 <code className="text-[10px] font-mono text-gray-500 break-all leading-relaxed">
-                  {`<a href="https://waterbuss.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>Tracked by WATERBUSS</a>`}
+                  {`<a href="https://waterbuss.com/${lang}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>${dict.badge.label}</a>`}
                 </code>
               </div>
               <button
-                onClick={() => copyToClipboard(`<a href="https://waterbuss.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>Tracked by WATERBUSS</a>`, "HTML")}
+                onClick={() => copyToClipboard(`<a href="https://waterbuss.com/${lang}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#000;border:1px solid #00F0FF;border-radius:99px;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:bold;"><span style="color:#00F0FF">💧</span>${dict.badge.label}</a>`, "HTML")}
                 className="flex items-center justify-center gap-2 w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded-xl transition-all active:scale-[0.98]"
               >
-                {copied === "HTML" ? "✅ COPIED TO CLIPBOARD!" : "📋 COPY HTML SNIPPET"}
+                {copied === "HTML" ? dict.badge.copied_button : dict.badge.copy_button}
               </button>
             </div>
           </div>
@@ -370,34 +411,34 @@ export default function Home() {
       {/* --- SECTION 5: FAQ & RESEARCH (SEO) --- */}
       <section className="py-24 px-4 border-t border-white/5 bg-[#050505]">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-12 text-center tracking-tighter uppercase font-mono text-gray-500">Frequently Asked Questions & Research Data</h2>
+          <h2 className="text-2xl font-bold mb-12 text-center tracking-tighter uppercase font-mono text-gray-500">{dict.faq.title}</h2>
 
           <div className="space-y-12">
             <div>
-              <h3 className="text-lg font-bold mb-3 text-white">How much water does ChatGPT consume per query?</h3>
+              <h3 className="text-lg font-bold mb-3 text-white">{dict.faq.q1.q}</h3>
               <p className="text-gray-400 leading-relaxed text-sm">
-                Recent research from <span className="text-cyan-400">UC Riverside</span> and Cornell University indicates that a typical conversation of 20-50 queries with GPT-4 can consume roughly 500ml of water. This <span className="text-white">AI water footprint</span> varies significantly based on the model complexity (GPT-4 vs GPT-3.5), the location of the data center, and the local Power Usage Effectiveness (PUE) of the cooling infrastructure.
+                {dict.faq.q1.a}
               </p>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-3 text-white">Why do data centers need water for AI?</h3>
+              <h3 className="text-lg font-bold mb-3 text-white">{dict.faq.q2.q}</h3>
               <p className="text-gray-400 leading-relaxed text-sm">
-                Training and running <span className="text-white">Large Language Models (LLMs)</span> generates massive thermal energy. To prevent hardware failure, data centers use evaporative cooling towers. This process dissipates heat by evaporating clean water into the atmosphere. Additionally, the electricity generation required to power these GPUs carries a significant indirect water footprint at the source.
+                {dict.faq.q2.a}
               </p>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-3 text-white">What is the environmental impact of Large Language Models (LLMs)?</h3>
+              <h3 className="text-lg font-bold mb-3 text-white">{dict.faq.q3.q}</h3>
               <p className="text-gray-400 leading-relaxed text-sm">
-                Beyond electricity consumption, the physical cost of <span className="text-white">Green AI</span> is measured in water scarcity and carbon output. As data center water usage 2026 projections show exponential growth, initiatives like Waterbuss aim to provide transparency into the <span className="text-cyan-400">Sustainable computing</span> metrics required for responsible AI deployment and global resource management.
+                {dict.faq.q3.a}
               </p>
             </div>
           </div>
 
           <div className="mt-16 pt-8 border-t border-white/5 text-center">
             <p className="text-[10px] text-gray-600 font-mono tracking-widest uppercase">
-              Keywords: AI water footprint, LLM environmental impact, Green AI, Sustainable computing, Data center water usage 2026.
+              {dict.faq.keywords}
             </p>
           </div>
         </div>
@@ -406,11 +447,11 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="mt-12 text-center border-t border-white/5 pt-12 pb-8">
         <h3 className="text-white font-bold text-lg mb-2">WATERBUSS</h3>
-        <p className="text-gray-600 text-sm mb-6">Building the sustainable future of AI.</p>
+        <p className="text-gray-600 text-sm mb-6">{dict.footer.description}</p>
         <div className="text-xs text-gray-700 font-mono flex justify-center gap-4">
-          <span>© 2026 Waterbuss. Open Source Project.</span>
+          <span>{dict.footer.copyright}</span>
           <a href="https://github.com/WaterlessAI" target="_blank" className="hover:text-cyan-400 transition-colors">
-            Created by WaterlessAI
+            {dict.footer.created_by}
           </a>
         </div>
       </footer>
@@ -425,7 +466,7 @@ export default function Home() {
           <div className="relative glass w-full max-w-md p-6 md:p-8 rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-cyan-500"></div>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold">How We Calculate</h2>
+              <h2 className="text-xl font-bold">{dict.methodology.title}</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-gray-500 hover:text-white transition-colors"
@@ -435,20 +476,20 @@ export default function Home() {
             </div>
             <div className="space-y-4 text-sm text-gray-400 leading-relaxed">
               <p>
-                Estimates are based on the industry standard of <span className="text-white font-bold">500ml water consumption per 20-50 queries</span> (varying by model efficiency and cooling tech).
+                {dict.methodology.p1}
               </p>
               <p>
-                Electricity usage includes Power Usage Effectiveness (PUE) of <span className="text-white font-bold">1.58</span>.
+                {dict.methodology.p2}
               </p>
               <div className="pt-4 border-t border-white/5 text-[10px] font-mono uppercase tracking-widest text-cyan-400">
-                Source: University of California, Riverside & Cornell University Research (2024).
+                {dict.methodology.source}
               </div>
             </div>
             <button
               onClick={() => setIsModalOpen(false)}
               className="w-full mt-8 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3 rounded-xl transition-all"
             >
-              GOT IT
+              {dict.methodology.button}
             </button>
           </div>
         </div>
